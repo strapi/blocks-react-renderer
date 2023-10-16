@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"],
+  "exclude": [
+    "**/__tests__/",
+    "**/test/",
+    "**/__mocks__/",
+    "**/*.test.tsx",
+    "**/*.test.ts"
+  ]
 }
