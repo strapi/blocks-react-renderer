@@ -20,6 +20,7 @@
     "types": ["vite/client", "@types/jest"]
   },
   "include": ["src"],
+  "exclude": ["**/*.test.tsx", "**/*.test.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

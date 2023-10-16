@@ -23,12 +23,14 @@
       "url": "https://strapi.io"
     }
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext .tsx,.ts",
     "format": "yarn lint --fix",
-    "test": "ts-jest"
+    "test": "jest"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -53,5 +55,6 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.6.0"
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
