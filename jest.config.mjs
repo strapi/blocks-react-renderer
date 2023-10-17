@@ -1,10 +1,8 @@
-/* eslint-disable import/no-default-export */
-
 /** @type {import('jest').Config} */
 const config = {
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
   transform: {
-    "^.+\\.(t|j)sx?$": "@swc/jest",
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
 };
 

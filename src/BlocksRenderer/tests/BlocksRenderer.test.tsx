@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { render } from "@testing-library/react";
+import { render } from '@testing-library/react';
 
-import { BlocksRenderer } from "../..";
+import { BlocksRenderer } from '../..';
 
-describe("BlocksRenderer", () => {
-  it("should render", () => {
+describe('BlocksRenderer', () => {
+  it('should render', () => {
     render(<BlocksRenderer />);
   });
 });

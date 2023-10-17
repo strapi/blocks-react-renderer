@@ -1,7 +1,30 @@
 {
   "root": true,
-  "extends": ["@strapi/eslint-config/front/typescript", "prettier"],
-  "ignorePatterns": ["dist", "node_modules"],
-  "rules": {},
-  "overrides": []
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["prettier"],
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["./tsconfig.eslint.json"]
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "plugins": ["@typescript-eslint", "prettier"]
+    }
+  ]
 }

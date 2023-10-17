@@ -1,3 +1,3 @@
-import { BlocksRenderer } from "./BlocksRenderer";
+import { BlocksRenderer } from './BlocksRenderer';
 
 export { BlocksRenderer };
