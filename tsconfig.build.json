@@ -1,11 +1,8 @@
 {
   "extends": "./tsconfig",
-  "include": ["./src"],
+  "include": ["src"],
+  "exclude": ["**/*.test.tsx"],
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist",
-    "emitDeclarationOnly": true,
-    "noEmit": false,
-    "resolveJsonModule": true
+    "outDir": "./dist"
   }
 }
