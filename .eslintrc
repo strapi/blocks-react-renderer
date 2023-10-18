@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "extends": ["@strapi/eslint-config/front/typescript"],
+  "parserOptions": {
+    "project": ["./tsconfig.eslint.json"]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.eslint.json"
+      }
+    }
+  },
+  "rules": {
+    "check-file/no-index": "off"
+  },
+  "overrides": []
+}
