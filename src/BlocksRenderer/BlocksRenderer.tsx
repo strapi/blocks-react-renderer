@@ -48,19 +48,19 @@ interface ImageBlockNode {
   type: 'image';
   image: {
     name: string;
-    alternativeText: string | null;
-    caption: string | null;
+    alternativeText?: string | null;
+    url: string;
+    caption?: string | null;
     width: number;
     height: number;
-    formats?: { [key: string]: unknown };
+    formats?: Record<string, unknown>;
     hash: string;
     ext: string;
     mime: string;
     size: number;
-    url: string;
-    previewUrl: string | null;
+    previewUrl?: string | null;
     provider: string;
-    provider_metadata: JSON | null;
+    provider_metadata?: unknown | null;
     createdAt: string;
     updatedAt: string;
   };
