@@ -11,7 +11,7 @@ const render = (ui: React.ReactElement) =>
   });
 
 describe('Block', () => {
-  it('renders text split across children', () => {
+  it('renders paragraphs with text split across children', () => {
     render(
       <Block
         content={{
@@ -130,6 +130,10 @@ describe('Block', () => {
             ext: 'jpg',
             mime: 'image/jpeg',
             url: 'https://test.com/test.jpg',
+            size: 100,
+            provider: 'local',
+            createdAt: '2021-01-01',
+            updatedAt: '2021-01-01',
           },
         }}
       />
