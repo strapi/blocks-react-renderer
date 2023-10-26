@@ -113,4 +113,31 @@ describe('Block', () => {
     expect(screen.getAllByRole('list')).toHaveLength(2);
     expect(screen.getByRole('listitem')).toHaveTextContent('Nested item 1');
   });
+
+  it('renders images', () => {
+    render(
+      <Block
+        content={{
+          type: 'image',
+          image: {
+            name: 'test',
+            alternativeText: 'Test',
+            caption: 'Test',
+            width: 100,
+            height: 100,
+            formats: {},
+            hash: 'test',
+            ext: 'jpg',
+            mime: 'image/jpeg',
+            url: 'https://test.com/test.jpg',
+          },
+        }}
+      />
+    );
+
+    const image = screen.getByRole('img', { name: /test/i });
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute('src', 'https://test.com/test.jpg');
+    expect(image).toHaveAttribute('alt', 'Test');
+  });
 });

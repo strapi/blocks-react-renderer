@@ -44,8 +44,36 @@ interface ListBlockNode {
   children: (ListItemInlineNode | ListBlockNode)[];
 }
 
+interface ImageBlockNode {
+  type: 'image';
+  image: {
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number;
+    height: number;
+    formats?: { [key: string]: unknown };
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl: string | null;
+    provider: string;
+    provider_metadata: JSON | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  children?: [{ type: 'text'; text: '' }];
+}
+
 // Block node types
-export type RootNode = ParagraphBlockNode | QuoteBlockNode | HeadingBlockNode | ListBlockNode;
+export type RootNode =
+  | ParagraphBlockNode
+  | QuoteBlockNode
+  | HeadingBlockNode
+  | ListBlockNode
+  | ImageBlockNode;
 export type Node = RootNode | NonTextInlineNode;
 
 // Util to convert a node to the props of the corresponding React component
@@ -104,6 +132,7 @@ const defaultComponents: ComponentsContextValue = {
       return <ul>{props.children}</ul>;
     },
     'list-item': (props) => <li>{props.children}</li>,
+    image: (props) => <img src={props.image.url} alt={props.image.alternativeText || undefined} />,
   },
   modifiers: {
     bold: (props) => <strong>{props.children}</strong>,

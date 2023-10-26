@@ -25,6 +25,11 @@ export const Block = ({ content }: BlockRendererProps) => {
     return null;
   }
 
+  // Handle void blocks separately
+  if (type === 'image') {
+    return <BlockComponent {...props}>{null}</BlockComponent>;
+  }
+
   return (
     <BlockComponent {...props}>
       {childrenNodes.map((childNode, index) => {
