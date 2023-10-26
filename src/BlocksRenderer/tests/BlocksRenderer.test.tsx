@@ -7,6 +7,7 @@ import { BlocksRenderer, type RootNode } from '..';
 const content = [
   {
     type: 'heading',
+    level: 1,
     children: [
       {
         type: 'link',
@@ -21,7 +22,6 @@ const content = [
 describe('BlocksRenderer', () => {
   it('should render content using default components', () => {
     render(<BlocksRenderer content={content} />);
-
     expect(screen.getByText('A simple paragraph')).toBeInTheDocument();
   });
 

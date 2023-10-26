@@ -7,29 +7,40 @@ import { type TextInlineNode } from '../Text';
  * TypeScript types and utils
  * -----------------------------------------------------------------------------------------------*/
 
-interface ParagraphBlockNode {
-  type: 'paragraph';
-  children: InlineNode[];
-}
-
-interface HeadingBlockNode {
-  type: 'heading';
-  level: 1 | 2 | 3 | 4 | 5 | 6;
-  children: InlineNode[];
-}
-
 interface LinkInlineNode {
   type: 'link';
   url: string;
   children: TextInlineNode[];
 }
 
+interface ListItemInlineNode {
+  type: 'list-item';
+  children: DefaultInlineNodeChild[];
+}
+
 // Inline node types
-type InlineNode = TextInlineNode | LinkInlineNode;
-type NonTextInlineNode = Exclude<InlineNode, TextInlineNode>;
+type DefaultInlineNodeChild = TextInlineNode | LinkInlineNode;
+type NonTextInlineNode = Exclude<DefaultInlineNodeChild, TextInlineNode> | ListItemInlineNode;
+
+interface ParagraphBlockNode {
+  type: 'paragraph';
+  children: DefaultInlineNodeChild[];
+}
+
+interface HeadingBlockNode {
+  type: 'heading';
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  children: DefaultInlineNodeChild[];
+}
+
+interface ListBlockNode {
+  type: 'list';
+  format: 'ordered' | 'unordered';
+  children: (ListItemInlineNode | ListBlockNode)[];
+}
 
 // Block node types
-export type RootNode = ParagraphBlockNode | HeadingBlockNode;
+export type RootNode = ParagraphBlockNode | HeadingBlockNode | ListBlockNode;
 export type Node = RootNode | NonTextInlineNode;
 
 // Util to convert a node to the props of the corresponding React component
@@ -62,9 +73,31 @@ interface ComponentsContextValue {
 const defaultComponents: ComponentsContextValue = {
   blocks: {
     paragraph: (props) => <p>{props.children}</p>,
-    // TODO all heading levels
-    heading: (props) => <h1>{props.children}</h1>,
+    heading: ({ level, children }) => {
+      switch (level) {
+        case 1:
+          return <h1>{children}</h1>;
+        case 2:
+          return <h2>{children}</h2>;
+        case 3:
+          return <h3>{children}</h3>;
+        case 4:
+          return <h4>{children}</h4>;
+        case 5:
+          return <h5>{children}</h5>;
+        case 6:
+          return <h6>{children}</h6>;
+      }
+    },
     link: (props) => <a href={props.url}>{props.children}</a>,
+    list: (props) => {
+      if (props.format === 'ordered') {
+        return <ol>{props.children}</ol>;
+      }
+
+      return <ul>{props.children}</ul>;
+    },
+    'list-item': (props) => <li>{props.children}</li>,
   },
   modifiers: {
     bold: (props) => <strong>{props.children}</strong>,

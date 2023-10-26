@@ -47,4 +47,54 @@ describe('Block', () => {
 
     expect(screen.getByRole('link', { name: /a link/i })).toBeInTheDocument();
   });
+
+  it('renders flat lists', () => {
+    render(
+      <Block
+        content={{
+          type: 'list',
+          format: 'unordered',
+          children: [
+            {
+              type: 'list-item',
+              children: [{ type: 'text', text: 'Item 1' }],
+            },
+            {
+              type: 'list-item',
+              children: [{ type: 'text', text: 'Item 2' }],
+            },
+          ],
+        }}
+      />
+    );
+
+    expect(screen.getByRole('list')).toBeInTheDocument();
+    const items = screen.getAllByRole('listitem');
+    expect(items).toHaveLength(2);
+    expect(items[0]).toHaveTextContent('Item 1');
+    expect(items[1]).toHaveTextContent('Item 2');
+  });
+
+  it('renders nested lists', () => {
+    render(
+      <Block
+        content={{
+          type: 'list',
+          format: 'ordered',
+          children: [
+            {
+              type: 'list',
+              format: 'unordered',
+              children: [
+                { type: 'list-item', children: [{ type: 'text', text: 'Nested item 1' }] },
+              ],
+            },
+          ],
+        }}
+      />
+    );
+
+    expect(screen.getAllByRole('list')).toHaveLength(2);
+    expect(screen.getByRole('listitem')).toHaveTextContent('Nested item 1');
+  });
 });
