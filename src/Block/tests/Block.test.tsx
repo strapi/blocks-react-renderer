@@ -29,6 +29,22 @@ describe('Block', () => {
     expect(paragraph).toHaveTextContent('A paragraph with bold');
   });
 
+  it('renders quotes', () => {
+    render(
+      <Block
+        content={{
+          type: 'quote',
+          children: [{ type: 'text', text: 'A quote' }],
+        }}
+      />
+    );
+
+    const quote = screen.getByText('A quote');
+    expect(quote).toBeInTheDocument();
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(quote.closest('blockquote')).toBeInTheDocument();
+  });
+
   it('renders links', () => {
     render(
       <Block

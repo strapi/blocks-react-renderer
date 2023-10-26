@@ -27,6 +27,11 @@ interface ParagraphBlockNode {
   children: DefaultInlineNodeChild[];
 }
 
+interface QuoteBlockNode {
+  type: 'quote';
+  children: DefaultInlineNodeChild[];
+}
+
 interface HeadingBlockNode {
   type: 'heading';
   level: 1 | 2 | 3 | 4 | 5 | 6;
@@ -40,7 +45,7 @@ interface ListBlockNode {
 }
 
 // Block node types
-export type RootNode = ParagraphBlockNode | HeadingBlockNode | ListBlockNode;
+export type RootNode = ParagraphBlockNode | QuoteBlockNode | HeadingBlockNode | ListBlockNode;
 export type Node = RootNode | NonTextInlineNode;
 
 // Util to convert a node to the props of the corresponding React component
@@ -73,6 +78,7 @@ interface ComponentsContextValue {
 const defaultComponents: ComponentsContextValue = {
   blocks: {
     paragraph: (props) => <p>{props.children}</p>,
+    quote: (props) => <blockquote>{props.children}</blockquote>,
     heading: ({ level, children }) => {
       switch (level) {
         case 1:
