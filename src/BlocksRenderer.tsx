@@ -32,6 +32,11 @@ interface QuoteBlockNode {
   children: DefaultInlineNode[];
 }
 
+interface CodeBlockNode {
+  type: 'code';
+  children: DefaultInlineNode[];
+}
+
 interface HeadingBlockNode {
   type: 'heading';
   level: 1 | 2 | 3 | 4 | 5 | 6;
@@ -71,6 +76,7 @@ interface ImageBlockNode {
 type RootNode =
   | ParagraphBlockNode
   | QuoteBlockNode
+  | CodeBlockNode
   | HeadingBlockNode
   | ListBlockNode
   | ImageBlockNode;
@@ -108,6 +114,11 @@ const defaultComponents: ComponentsContextValue = {
   blocks: {
     paragraph: (props) => <p>{props.children}</p>,
     quote: (props) => <blockquote>{props.children}</blockquote>,
+    code: (props) => (
+      <pre>
+        <code>{props.children}</code>
+      </pre>
+    ),
     heading: ({ level, children }) => {
       switch (level) {
         case 1:

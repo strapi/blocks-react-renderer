@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { render, screen } from '@testing-library/react';
+import exp from 'constants';
 
 import { BlocksRenderer, type RootNode } from '../src/BlocksRenderer';
 
@@ -104,6 +105,22 @@ describe('BlocksRenderer', () => {
       expect(quote).toBeInTheDocument();
       // eslint-disable-next-line testing-library/no-node-access
       expect(quote.closest('blockquote')).toBeInTheDocument();
+    });
+
+    it('renders code blocks', () => {
+      render(
+        <BlocksRenderer
+          content={[{ type: 'code', children: [{ type: 'text', text: 'my code' }] }]}
+        />
+      );
+
+      // screen.getByRole('code', { name: /my code/i });
+      const code = screen.getByText('my code');
+      expect(code).toBeInTheDocument();
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(code.closest('code')).toBeInTheDocument();
+      // eslint-disable-next-line testing-library/no-node-access
+      expect(code.closest('pre')).toBeInTheDocument();
     });
 
     it('renders links', () => {
