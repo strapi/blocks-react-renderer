@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Block } from '../Block';
-import { type Modifier, type TextInlineNode } from '../Text';
+import { Block } from './Block';
+import { type Modifier, type TextInlineNode } from './Text';
 
 /* -------------------------------------------------------------------------------------------------
  * TypeScript types and utils

@@ -13,7 +13,6 @@
     }
   },
   "rules": {
-    "check-file/no-index": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {

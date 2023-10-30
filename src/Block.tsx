@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { useComponentsContext, type Node, type GetPropsFromNode } from '../BlocksRenderer';
-import { Text } from '../Text';
+import { useComponentsContext, type Node, type GetPropsFromNode } from './BlocksRenderer';
+import { Text } from './Text';
 
 type BlockComponentProps = GetPropsFromNode<Node>;
 

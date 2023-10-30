@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useComponentsContext } from '../BlocksRenderer';
+import { useComponentsContext } from './BlocksRenderer';
 
 interface TextInlineNode {
   type: 'text';
