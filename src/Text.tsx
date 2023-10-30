@@ -18,7 +18,7 @@ type TextInlineProps = Omit<TextInlineNode, 'type'>;
 
 const Text = ({ text, ...modifiers }: TextInlineProps) => {
   // Get matching React component from the context
-  const { modifiers: modifierComponents } = useComponentsContext();
+  const { modifiers: modifierComponents, missingModifierTypes } = useComponentsContext();
 
   const modifierNames = Object.keys(modifiers) as Modifier[];
 
@@ -32,9 +32,14 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
 
       const ModifierComponent = modifierComponents[modifierName];
 
-      // Silently fail if the modifier is unknown
-      // in case we add new modifiers or other attributes in the future
       if (!ModifierComponent) {
+        // Only warn once per missing modifier
+        if (!missingModifierTypes.includes(modifierName)) {
+          console.warn(`No component found for modifier "${modifierName}"`);
+          missingModifierTypes.push(modifierName);
+        }
+
+        // Don't throw an error, just ignore the modifier
         return children;
       }
 

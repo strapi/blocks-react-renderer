@@ -100,6 +100,8 @@ type ModifiersComponents = {
 interface ComponentsContextValue {
   blocks: BlocksComponents;
   modifiers: ModifiersComponents;
+  missingBlockTypes: string[];
+  missingModifierTypes: string[];
 }
 
 const defaultComponents: ComponentsContextValue = {
@@ -140,6 +142,8 @@ const defaultComponents: ComponentsContextValue = {
     strikethrough: (props) => <del>{props.children}</del>,
     code: (props) => <code>{props.children}</code>,
   },
+  missingBlockTypes: [],
+  missingModifierTypes: [],
 };
 
 /* -------------------------------------------------------------------------------------------------
@@ -187,8 +191,19 @@ const BlocksRenderer = (props: BlocksRendererProps) => {
     ...props.modifiers,
   };
 
+  // Use refs because we can mutate them and avoid triggering re-renders
+  const missingBlockTypes = React.useRef<string[]>([]);
+  const missingModifierTypes = React.useRef<string[]>([]);
+
   return (
-    <ComponentsProvider value={{ blocks, modifiers }}>
+    <ComponentsProvider
+      value={{
+        blocks,
+        modifiers,
+        missingBlockTypes: missingBlockTypes.current,
+        missingModifierTypes: missingModifierTypes.current,
+      }}
+    >
       {/* TODO use WeakMap instead of index as the key */}
       {props.content.map((content, index) => (
         <Block content={content} key={index} />

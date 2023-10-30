@@ -15,15 +15,17 @@ const Block = ({ content }: BlockProps) => {
   const { children: childrenNodes, type, ...props } = content;
 
   // Get matching React component from the context
-  const { blocks } = useComponentsContext();
+  const { blocks, missingBlockTypes } = useComponentsContext();
   const BlockComponent = blocks[type] as React.ComponentType<BlockComponentProps> | undefined;
 
   if (!BlockComponent) {
-    /**
-     * Silently ignore blocks that we don't know how to render
-     * This shouldn't happen for now, but would enable us to add new block types
-     * or custom blocks in the future without breaking the renderer.
-     */
+    // Only warn once per missing block
+    if (!missingBlockTypes.includes(type)) {
+      console.warn(`No component found for block type "${type}"`);
+      missingBlockTypes.push(type);
+    }
+
+    // Don't throw an error, just ignore the block
     return null;
   }
 

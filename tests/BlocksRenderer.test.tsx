@@ -213,6 +213,31 @@ describe('BlocksRenderer', () => {
       expect(image).toHaveAttribute('src', 'https://test.com/test.jpg');
       expect(image).toHaveAttribute('alt', 'Test');
     });
+
+    it('handles missing block components', () => {
+      const originalWarn = console.warn;
+      console.warn = jest.fn();
+
+      render(
+        <BlocksRenderer
+          content={[
+            // @ts-expect-error unknown does not exist
+            { type: 'unknown', children: [{ type: 'text', text: 'Should not appear' }] },
+            // @ts-expect-error unknown does not exist
+            { type: 'unknown', children: [{ type: 'text', text: 'Should not appear' }] },
+            // @ts-expect-error unknown2 does not exist
+            { type: 'unknown2', children: [{ type: 'text', text: 'Should not appear' }] },
+          ]}
+        />
+      );
+
+      expect(screen.queryByText('Should not appear')).not.toBeInTheDocument();
+      expect(console.warn).toHaveBeenCalledTimes(2);
+      expect(console.warn).toHaveBeenCalledWith('No component found for block type "unknown"');
+      expect(console.warn).toHaveBeenCalledWith('No component found for block type "unknown2"');
+
+      console.warn = originalWarn;
+    });
   });
 
   describe('Modifiers', () => {
@@ -260,6 +285,9 @@ describe('BlocksRenderer', () => {
     });
 
     it('ignores disabled or unknown modifiers', () => {
+      const originalWarn = console.warn;
+      console.warn = jest.fn();
+
       render(
         <BlocksRenderer
           content={[
@@ -284,6 +312,56 @@ describe('BlocksRenderer', () => {
 
       // eslint-disable-next-line testing-library/no-node-access
       expect(text.closest('strong')).not.toBeInTheDocument();
+
+      console.warn = originalWarn;
+    });
+
+    it('handles missing modifier components', () => {
+      const originalWarn = console.warn;
+      console.warn = jest.fn();
+
+      render(
+        <BlocksRenderer
+          content={[
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'My paragraph',
+                  // @ts-expect-error unknown is an invalid modifier
+                  unknown: true,
+                },
+                {
+                  type: 'text',
+                  text: 'Still my paragraph',
+                  // @ts-expect-error unknown is an invalid modifier
+                  unknown: true,
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'My other paragraph',
+                  // @ts-expect-error unknown is an invalid modifier
+                  unknown: true,
+                  unknown2: true,
+                },
+              ],
+            },
+          ]}
+        />
+      );
+
+      expect(screen.getByText(/my paragraph/i)).toBeInTheDocument();
+      expect(console.warn).toHaveBeenCalledTimes(2);
+      expect(console.warn).toHaveBeenCalledWith('No component found for modifier "unknown"');
+      expect(console.warn).toHaveBeenCalledWith('No component found for modifier "unknown2"');
+
+      console.warn = originalWarn;
     });
   });
 });
