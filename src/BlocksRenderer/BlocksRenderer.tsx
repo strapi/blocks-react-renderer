@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Block } from '../Block';
-import { type TextInlineNode } from '../Text';
+import { type Modifier, type TextInlineNode } from '../Text';
 
 /* -------------------------------------------------------------------------------------------------
  * TypeScript types and utils
@@ -15,27 +15,27 @@ interface LinkInlineNode {
 
 interface ListItemInlineNode {
   type: 'list-item';
-  children: DefaultInlineNodeChild[];
+  children: DefaultInlineNode[];
 }
 
 // Inline node types
-type DefaultInlineNodeChild = TextInlineNode | LinkInlineNode;
-type NonTextInlineNode = Exclude<DefaultInlineNodeChild, TextInlineNode> | ListItemInlineNode;
+type DefaultInlineNode = TextInlineNode | LinkInlineNode;
+type NonTextInlineNode = Exclude<DefaultInlineNode, TextInlineNode> | ListItemInlineNode;
 
 interface ParagraphBlockNode {
   type: 'paragraph';
-  children: DefaultInlineNodeChild[];
+  children: DefaultInlineNode[];
 }
 
 interface QuoteBlockNode {
   type: 'quote';
-  children: DefaultInlineNodeChild[];
+  children: DefaultInlineNode[];
 }
 
 interface HeadingBlockNode {
   type: 'heading';
   level: 1 | 2 | 3 | 4 | 5 | 6;
-  children: DefaultInlineNodeChild[];
+  children: DefaultInlineNode[];
 }
 
 interface ListBlockNode {
@@ -68,16 +68,16 @@ interface ImageBlockNode {
 }
 
 // Block node types
-export type RootNode =
+type RootNode =
   | ParagraphBlockNode
   | QuoteBlockNode
   | HeadingBlockNode
   | ListBlockNode
   | ImageBlockNode;
-export type Node = RootNode | NonTextInlineNode;
+type Node = RootNode | NonTextInlineNode;
 
 // Util to convert a node to the props of the corresponding React component
-export type GetPropsFromNode<T> = Omit<T, 'type' | 'children'> & { children: React.ReactNode };
+type GetPropsFromNode<T> = Omit<T, 'type' | 'children'> & { children?: React.ReactNode };
 
 // Map of all block types to their matching React component
 type BlocksComponents = {
@@ -89,7 +89,6 @@ type BlocksComponents = {
 };
 
 // Map of all inline types to their matching React component
-export type Modifier = Exclude<keyof TextInlineNode, 'type' | 'text'>;
 type ModifiersComponents = {
   [K in Modifier]: React.ComponentType<{ children: React.ReactNode }>;
 };
@@ -154,16 +153,14 @@ interface ComponentsProviderProps {
   value?: ComponentsContextValue;
 }
 
-// Export the component with a default value
-// so we don't need to import defaultComponentsContextValue in all tests
-export const ComponentsProvider = ({
-  children,
-  value = defaultComponents,
-}: ComponentsProviderProps) => {
-  return <ComponentsContext.Provider value={value}>{children}</ComponentsContext.Provider>;
+// Provide default value so we don't need to import defaultComponents in all tests
+const ComponentsProvider = ({ children, value = defaultComponents }: ComponentsProviderProps) => {
+  const memoizedValue = React.useMemo(() => value, [value]);
+
+  return <ComponentsContext.Provider value={memoizedValue}>{children}</ComponentsContext.Provider>;
 };
 
-export function useComponentsContext() {
+function useComponentsContext() {
   return React.useContext(ComponentsContext);
 }
 
@@ -177,7 +174,7 @@ interface BlocksRendererProps {
   modifiers?: Partial<ModifiersComponents>;
 }
 
-export const BlocksRenderer = (props: BlocksRendererProps) => {
+const BlocksRenderer = (props: BlocksRendererProps) => {
   // Merge default blocks with the ones provided by the user
   const blocks = {
     ...defaultComponents.blocks,
@@ -191,13 +188,18 @@ export const BlocksRenderer = (props: BlocksRendererProps) => {
   };
 
   return (
-    <div>
-      <ComponentsProvider value={{ blocks, modifiers }}>
-        {/* TODO use WeakMap instead of index as the key */}
-        {props.content.map((content, index) => (
-          <Block content={content} key={index} />
-        ))}
-      </ComponentsProvider>
-    </div>
+    <ComponentsProvider value={{ blocks, modifiers }}>
+      {/* TODO use WeakMap instead of index as the key */}
+      {props.content.map((content, index) => (
+        <Block content={content} key={index} />
+      ))}
+    </ComponentsProvider>
   );
 };
+
+/* -------------------------------------------------------------------------------------------------
+ * Exports
+ * -----------------------------------------------------------------------------------------------*/
+
+export type { RootNode, Node, GetPropsFromNode };
+export { ComponentsProvider, useComponentsContext, BlocksRenderer };

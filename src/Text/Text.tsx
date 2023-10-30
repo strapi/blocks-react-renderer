@@ -2,13 +2,7 @@ import * as React from 'react';
 
 import { useComponentsContext } from '../BlocksRenderer';
 
-import type { Modifier } from '../BlocksRenderer';
-
-/* -------------------------------------------------------------------------------------------------
- * Default modifier components
- * -----------------------------------------------------------------------------------------------*/
-
-export interface TextInlineNode {
+interface TextInlineNode {
   type: 'text';
   text: string;
   bold?: boolean;
@@ -18,9 +12,11 @@ export interface TextInlineNode {
   code?: boolean;
 }
 
+type Modifier = Exclude<keyof TextInlineNode, 'type' | 'text'>;
+
 type TextInlineProps = Omit<TextInlineNode, 'type'>;
 
-export const Text = ({ text, ...modifiers }: TextInlineProps) => {
+const Text = ({ text, ...modifiers }: TextInlineProps) => {
   // Get matching React component from the context
   const { modifiers: modifierComponents } = useComponentsContext();
 
@@ -44,6 +40,10 @@ export const Text = ({ text, ...modifiers }: TextInlineProps) => {
 
       return <ModifierComponent>{children}</ModifierComponent>;
     },
-    <span>{text}</span>
+    // By default, return the text without any wrapper to avoid useless nesting
+    <>{text}</>
   );
 };
+
+export type { TextInlineNode, Modifier };
+export { Text };

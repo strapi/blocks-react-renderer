@@ -3,18 +3,20 @@ import * as React from 'react';
 import { useComponentsContext, type Node, type GetPropsFromNode } from '../BlocksRenderer';
 import { Text } from '../Text';
 
-type BlockProps = GetPropsFromNode<Node>;
+type BlockComponentProps = GetPropsFromNode<Node>;
 
-interface BlockRendererProps {
+interface BlockProps {
   content: Node;
 }
 
-export const Block = ({ content }: BlockRendererProps) => {
+const voidTypes = ['image'];
+
+const Block = ({ content }: BlockProps) => {
   const { children: childrenNodes, type, ...props } = content;
 
   // Get matching React component from the context
   const { blocks } = useComponentsContext();
-  const BlockComponent = blocks[type] as React.ComponentType<BlockProps> | undefined;
+  const BlockComponent = blocks[type] as React.ComponentType<BlockComponentProps> | undefined;
 
   if (!BlockComponent) {
     /**
@@ -25,9 +27,9 @@ export const Block = ({ content }: BlockRendererProps) => {
     return null;
   }
 
-  // Handle void blocks separately
-  if (type === 'image') {
-    return <BlockComponent {...props}>{null}</BlockComponent>;
+  // Handle void types separately as they should not render children
+  if (voidTypes.includes(type) || !childrenNodes) {
+    return <BlockComponent {...props} />;
   }
 
   return (
@@ -46,3 +48,5 @@ export const Block = ({ content }: BlockRendererProps) => {
     </BlockComponent>
   );
 };
+
+export { Block };
