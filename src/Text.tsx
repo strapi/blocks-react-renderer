@@ -34,7 +34,10 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
 
       if (!ModifierComponent) {
         // Only warn once per missing modifier
-        if (!missingModifierTypes.includes(modifierName)) {
+        if (
+          ['development', 'test'].includes(process.env.NODE_ENV as string) &&
+          !missingModifierTypes.includes(modifierName)
+        ) {
           console.warn(`No component found for modifier "${modifierName}"`);
           missingModifierTypes.push(modifierName);
         }

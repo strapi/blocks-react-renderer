@@ -20,7 +20,10 @@ const Block = ({ content }: BlockProps) => {
 
   if (!BlockComponent) {
     // Only warn once per missing block
-    if (!missingBlockTypes.includes(type)) {
+    if (
+      ['development', 'test'].includes(process.env.NODE_ENV as string) &&
+      !missingBlockTypes.includes(type)
+    ) {
       console.warn(`No component found for block type "${type}"`);
       missingBlockTypes.push(type);
     }
