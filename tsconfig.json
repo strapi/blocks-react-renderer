@@ -18,6 +18,6 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "types": ["vite/client", "jest", "@testing-library/jest-dom", "@types/node"]
+    "types": ["vite/client", "jest", "@testing-library/jest-dom"]
   }
 }

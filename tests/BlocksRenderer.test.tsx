@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import exp from 'constants';
 
 import { BlocksRenderer, type RootNode } from '../src/BlocksRenderer';
 

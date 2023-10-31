@@ -34,10 +34,7 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
 
       if (!ModifierComponent) {
         // Only warn once per missing modifier
-        if (
-          ['development', 'test'].includes(process.env.NODE_ENV as string) &&
-          !missingModifierTypes.includes(modifierName)
-        ) {
+        if (!missingModifierTypes.includes(modifierName)) {
           console.warn(
             `[@strapi/block-react-renderer] No component found for modifier "${modifierName}"`
           );
