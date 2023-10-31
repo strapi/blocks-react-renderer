@@ -30,7 +30,7 @@ const Block = ({ content }: BlockProps) => {
   }
 
   // Handle void types separately as they should not render children
-  if (voidTypes.includes(type) || !childrenNodes) {
+  if (voidTypes.includes(type)) {
     return <BlockComponent {...props} />;
   }
 

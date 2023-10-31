@@ -69,7 +69,7 @@ interface ImageBlockNode {
     createdAt: string;
     updatedAt: string;
   };
-  children?: [{ type: 'text'; text: '' }];
+  children: [{ type: 'text'; text: '' }];
 }
 
 // Block node types
