@@ -114,7 +114,6 @@ describe('BlocksRenderer', () => {
         />
       );
 
-      // screen.getByRole('code', { name: /my code/i });
       const code = screen.getByText('my code');
       expect(code).toBeInTheDocument();
       // eslint-disable-next-line testing-library/no-node-access
@@ -250,8 +249,12 @@ describe('BlocksRenderer', () => {
 
       expect(screen.queryByText('Should not appear')).not.toBeInTheDocument();
       expect(console.warn).toHaveBeenCalledTimes(2);
-      expect(console.warn).toHaveBeenCalledWith('No component found for block type "unknown"');
-      expect(console.warn).toHaveBeenCalledWith('No component found for block type "unknown2"');
+      expect(console.warn).toHaveBeenCalledWith(
+        '[@strapi/block-react-renderer] No component found for block type "unknown"'
+      );
+      expect(console.warn).toHaveBeenCalledWith(
+        '[@strapi/block-react-renderer] No component found for block type "unknown2"'
+      );
 
       console.warn = originalWarn;
     });
@@ -375,8 +378,12 @@ describe('BlocksRenderer', () => {
 
       expect(screen.getByText(/my paragraph/i)).toBeInTheDocument();
       expect(console.warn).toHaveBeenCalledTimes(2);
-      expect(console.warn).toHaveBeenCalledWith('No component found for modifier "unknown"');
-      expect(console.warn).toHaveBeenCalledWith('No component found for modifier "unknown2"');
+      expect(console.warn).toHaveBeenCalledWith(
+        '[@strapi/block-react-renderer] No component found for modifier "unknown"'
+      );
+      expect(console.warn).toHaveBeenCalledWith(
+        '[@strapi/block-react-renderer] No component found for modifier "unknown2"'
+      );
 
       console.warn = originalWarn;
     });

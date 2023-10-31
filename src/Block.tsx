@@ -24,7 +24,7 @@ const Block = ({ content }: BlockProps) => {
       ['development', 'test'].includes(process.env.NODE_ENV as string) &&
       !missingBlockTypes.includes(type)
     ) {
-      console.warn(`No component found for block type "${type}"`);
+      console.warn(`[@strapi/block-react-renderer] No component found for block type "${type}"`);
       missingBlockTypes.push(type);
     }
 

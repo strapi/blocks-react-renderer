@@ -38,7 +38,9 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
           ['development', 'test'].includes(process.env.NODE_ENV as string) &&
           !missingModifierTypes.includes(modifierName)
         ) {
-          console.warn(`No component found for modifier "${modifierName}"`);
+          console.warn(
+            `[@strapi/block-react-renderer] No component found for modifier "${modifierName}"`
+          );
           missingModifierTypes.push(modifierName);
         }
 
