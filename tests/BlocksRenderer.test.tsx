@@ -218,6 +218,7 @@ describe('BlocksRenderer', () => {
                 createdAt: '2021-01-01',
                 updatedAt: '2021-01-01',
               },
+              children: [{ type: 'text', text: '' }],
             },
           ]}
         />
@@ -354,7 +355,6 @@ describe('BlocksRenderer', () => {
                 {
                   type: 'text',
                   text: 'Still my paragraph',
-                  // @ts-expect-error unknown is an invalid modifier
                   unknown: true,
                 },
               ],

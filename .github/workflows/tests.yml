@@ -1,0 +1,45 @@
+name: 'Tests'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - '**.md?'
+
+jobs:
+  lint:
+    name: 'lint (node: 20)'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'strapi/blocks-react-renderer'
+          persist-credentials: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: 'Install dependencies for linting'
+        run: yarn install
+      - name: 'Run lint'
+        run: yarn lint
+
+  unit_tests:
+    name: 'unit_tests (node: ${{ matrix.node }})'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'strapi/blocks-react-renderer'
+          persist-credentials: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: 'Run install'
+        run: yarn install
+      - name: 'Run tests'
+        run: yarn test
