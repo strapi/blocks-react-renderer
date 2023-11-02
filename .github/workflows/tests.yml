@@ -13,11 +13,11 @@ jobs:
     name: 'Lint (node: 20)'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: 'strapi/blocks-react-renderer'
           persist-credentials: false
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
       - name: 'Install dependencies for linting'
@@ -32,11 +32,11 @@ jobs:
       matrix:
         node: [18, 20]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: 'strapi/blocks-react-renderer'
           persist-credentials: false
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - name: 'Run install'
