@@ -71,7 +71,7 @@ const App = () => {
     <BlocksRenderer
       content={content}
       blocks={{
-        // You can use the default components to set class names
+        // You can use the default components to set class names...
         paragraph: ({ children }) => <p className="text-neutral900 max-w-prose">{children}</p>,
         // ...or point to a design system
         heading: ({ children, level }) => {
@@ -91,13 +91,13 @@ const App = () => {
             default:
               return <Typography variant="h1">{children}</h1>
           }
-          // For links, you may want to use the component from your router or framework
-          link: ({ children, href }) => <Link to={href}>{children}</Link>,
         },
+        // For links, you may want to use the component from your router or framework
+        link: ({ children, url }) => <Link to={url}>{children}</Link>,
       }}
       modifiers={{
         bold: ({ children }) => <strong>{children}</strong>,
-        italic: ({ children }) => <span className="italic">{children}</em>,
+        italic: ({ children }) => <span className="italic">{children}</span>,
       }}
     />
   );
