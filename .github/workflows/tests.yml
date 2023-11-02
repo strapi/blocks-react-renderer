@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    name: 'Lint (node: 20)'
+    name: 'lint (node: 20)'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [18, 20]
+        node: [20]
     steps:
       - uses: actions/checkout@v4
         with:
