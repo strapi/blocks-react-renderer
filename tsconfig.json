@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", "tests"],
   "compilerOptions": {
     "composite": false,
     "declaration": true,
@@ -9,6 +9,7 @@
     "inlineSources": false,
     "isolatedModules": true,
     "jsx": "react",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
@@ -16,6 +17,7 @@
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "types": ["vite/client", "jest", "@testing-library/jest-dom"]
   }
 }

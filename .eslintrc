@@ -1,6 +1,7 @@
 {
   "root": true,
   "extends": ["@strapi/eslint-config/front/typescript"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["./tsconfig.eslint.json"]
   },
@@ -12,7 +13,13 @@
     }
   },
   "rules": {
-    "check-file/no-index": "off"
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
+    ]
   },
   "overrides": []
 }
