@@ -1,3 +1,3 @@
-import { BlocksRenderer } from './BlocksRenderer';
+import { BlocksRenderer, type RootNode } from './BlocksRenderer';
 
-export { BlocksRenderer };
+export { BlocksRenderer, RootNode };
