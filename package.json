@@ -1,6 +1,6 @@
 {
   "name": "@strapi/blocks-react-renderer",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.2",
   "bugs": {
     "url": "https://github.com/strapi/blocks-react-renderer/issues"
   },
