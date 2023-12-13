@@ -11,6 +11,37 @@ interface BlockProps {
 
 const voidTypes = ['image'];
 
+/**
+ * Add props that are specific to a block type, and not present in that node type
+ */
+const augmentProps = (content: Node) => {
+  const { children: childrenNodes, type, ...props } = content;
+
+  if (type === 'code') {
+    // Builds a plain text string from an array of nodes, regardless of links or modifiers
+    const getPlainText = (children: typeof childrenNodes): string => {
+      return children.reduce((currentPlainText, node) => {
+        if (node.type === 'text') {
+          return currentPlainText + node.text;
+        }
+
+        if (node.type === 'link') {
+          return currentPlainText + getPlainText(node.children);
+        }
+
+        return currentPlainText;
+      }, '');
+    };
+
+    return {
+      ...props,
+      plainText: getPlainText(content.children),
+    };
+  }
+
+  return props;
+};
+
 const Block = ({ content }: BlockProps) => {
   const { children: childrenNodes, type, ...props } = content;
 
@@ -34,8 +65,10 @@ const Block = ({ content }: BlockProps) => {
     return <BlockComponent {...props} />;
   }
 
+  const augmentedProps = augmentProps(content);
+
   return (
-    <BlockComponent {...props}>
+    <BlockComponent {...augmentedProps}>
       {childrenNodes.map((childNode, index) => {
         if (childNode.type === 'text') {
           const { type: _type, ...childNodeProps } = childNode;

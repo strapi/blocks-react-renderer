@@ -386,5 +386,37 @@ describe('BlocksRenderer', () => {
 
       console.warn = originalWarn;
     });
+
+    it('parses code blocks to plain text', () => {
+      render(
+        <BlocksRenderer
+          content={[
+            {
+              type: 'code',
+              children: [
+                {
+                  type: 'text',
+                  text: 'const a = 1;',
+                },
+                {
+                  type: 'link',
+                  url: 'https://test.com',
+                  children: [{ type: 'text', text: 'const b = 2;', bold: true }],
+                },
+              ],
+            },
+          ]}
+          blocks={{
+            code: (props) => (
+              <pre>
+                <code>{props.plainText}</code>
+              </pre>
+            ),
+          }}
+        />
+      );
+
+      expect(screen.getByText('const a = 1;const b = 2;')).toBeInTheDocument();
+    });
   });
 });

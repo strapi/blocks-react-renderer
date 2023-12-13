@@ -40,12 +40,12 @@ You can provide your own React components to the renderer, both for blocks and m
 
 - **Blocks** are full-width elements, usually at the root of the content. The available options are:
   - paragraph
-  - heading
-  - list
+  - heading (receives `level`)
+  - list (receives `format`)
   - quote
-  - code
-  - image
-  - link
+  - code (receives `plainText`)
+  - image (receives `image`)
+  - link (receives `url`)
 - **Modifiers** are inline elements, used to change the appearance of fragments of text within a block. The available options are:
   - bold
   - italic
