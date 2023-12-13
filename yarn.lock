@@ -1178,7 +1178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.14":
+"@jridgewell/sourcemap-codec@npm:^1.4.10, @jridgewell/sourcemap-codec@npm:^1.4.14, @jridgewell/sourcemap-codec@npm:^1.4.15":
   version: 1.4.15
   resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
   checksum: b881c7e503db3fc7f3c1f35a1dd2655a188cc51a3612d76efc8a6eb74728bef5606e6758ee77423e564092b4a518aba569bbb21c9bac5ab7a35b0c6ae7e344c8
@@ -1318,7 +1318,7 @@ __metadata:
   resolution: "@strapi/blocks-react-renderer@workspace:."
   dependencies:
     "@strapi/eslint-config": ^0.2.0
-    "@strapi/pack-up": ^4.14.4
+    "@strapi/pack-up": 4.15.5
     "@swc/core": ^1.3.93
     "@swc/jest": ^0.2.29
     "@testing-library/jest-dom": ^6.1.4
@@ -1346,6 +1346,7 @@ __metadata:
     prettier: ^3.0.3
     react: ^18.0.0
     react-dom: ^18.0.0
+    rollup-plugin-preserve-directives: ^0.2.0
     typescript: ^5.2.2
   peerDependencies:
     react: ^18.0.0
@@ -1384,9 +1385,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@strapi/pack-up@npm:^4.14.4":
-  version: 4.14.4
-  resolution: "@strapi/pack-up@npm:4.14.4"
+"@strapi/pack-up@npm:4.15.5":
+  version: 4.15.5
+  resolution: "@strapi/pack-up@npm:4.15.5"
   dependencies:
     "@vitejs/plugin-react": 4.1.0
     boxen: 5.1.2
@@ -1395,7 +1396,7 @@ __metadata:
     chokidar: 3.5.3
     commander: 8.3.0
     esbuild: 0.19.2
-    esbuild-register: 3.4.2
+    esbuild-register: 3.5.0
     get-latest-version: 5.1.0
     git-url-parse: 13.1.0
     ini: 4.1.1
@@ -1411,7 +1412,7 @@ __metadata:
     yup: 0.32.9
   bin:
     pack-up: bin/pack-up.js
-  checksum: e49027011dd59f4883465a77b586077c8460294206314a8e54410a2b597996312a15f4636ebe8dfcbc8014d1a6f30b9fec2186c614f4918c24635efb7214688c
+  checksum: db31b0c73cff167560f5e574cd3d0972e51c626c516b0dec76592eb3781d3f5f93eea43d2ad248910808717d172f01ecb67fe09f38f9b082d56ad2f3c9b8ab3f
   languageName: node
   linkType: hard
 
@@ -3579,14 +3580,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-register@npm:3.4.2":
-  version: 3.4.2
-  resolution: "esbuild-register@npm:3.4.2"
+"esbuild-register@npm:3.5.0":
+  version: 3.5.0
+  resolution: "esbuild-register@npm:3.5.0"
   dependencies:
     debug: ^4.3.4
   peerDependencies:
     esbuild: ">=0.12 <1"
-  checksum: f65d1ccb58b1ccbba376efb1fc023abe22731d9b79eead1b0120e57d4413318f063696257a5af637b527fa1d3f009095aa6edb1bf6ff69d637a9ab281fb727b3
+  checksum: f4307753c9672a2c901d04a1165031594a854f0a4c6f4c1db08aa393b68a193d38f2df483dc8ca0513e89f7b8998415e7e26fb9830989fb8cdccc5fb5f181c6b
   languageName: node
   linkType: hard
 
@@ -6497,6 +6498,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.30.0":
+  version: 0.30.5
+  resolution: "magic-string@npm:0.30.5"
+  dependencies:
+    "@jridgewell/sourcemap-codec": ^1.4.15
+  checksum: da10fecff0c0a7d3faf756913ce62bd6d5e7b0402be48c3b27bfd651b90e29677e279069a63b764bcdc1b8ecdcdb898f29a5c5ec510f2323e8d62ee057a6eb18
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^4.0.0":
   version: 4.0.0
   resolution: "make-dir@npm:4.0.0"
@@ -7789,6 +7799,17 @@ __metadata:
   bin:
     rimraf: bin.js
   checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-preserve-directives@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "rollup-plugin-preserve-directives@npm:0.2.0"
+  dependencies:
+    magic-string: ^0.30.0
+  peerDependencies:
+    rollup: 2.x || 3.x
+  checksum: 7560a77ef8d49661b616a868ef2b140b069f4016a24c948d0b1d7db973a7e5258197054f64db5398baa88ce879c76dd0ee28656f4b81a2761b3a3750f909834e
   languageName: node
   linkType: hard
 
