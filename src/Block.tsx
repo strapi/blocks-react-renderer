@@ -22,11 +22,11 @@ const augmentProps = (content: Node) => {
     const getPlainText = (children: typeof childrenNodes): string => {
       return children.reduce((currentPlainText, node) => {
         if (node.type === 'text') {
-          return currentPlainText + node.text;
+          return currentPlainText.concat(node.text);
         }
 
         if (node.type === 'link') {
-          return currentPlainText + getPlainText(node.children);
+          return currentPlainText.concat(getPlainText(node.children));
         }
 
         return currentPlainText;
