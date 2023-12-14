@@ -85,7 +85,11 @@ type RootNode =
 type Node = RootNode | NonTextInlineNode;
 
 // Util to convert a node to the props of the corresponding React component
-type GetPropsFromNode<T> = Omit<T, 'type' | 'children'> & { children?: React.ReactNode };
+type GetPropsFromNode<T> = Omit<T, 'type' | 'children'> & {
+  children?: React.ReactNode;
+  // For code blocks, add a plainText property that is created by this renderer
+  plainText?: T extends { type: 'code' } ? string : never;
+};
 
 // Map of all block types to their matching React component
 type BlocksComponents = {
@@ -118,7 +122,7 @@ const defaultComponents: ComponentsContextValue = {
     quote: (props) => <blockquote>{props.children}</blockquote>,
     code: (props) => (
       <pre>
-        <code>{props.children}</code>
+        <code>{props.plainText}</code>
       </pre>
     ),
     heading: ({ level, children }) => {
