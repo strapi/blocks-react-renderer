@@ -77,19 +77,19 @@ const App = () => {
         heading: ({ children, level }) => {
           switch (level) {
             case 1:
-              return <Typography variant="h1">{children}</h1>
+              return <Typography variant="h1">{children}</Typography>
             case 2:
-              return <Typography variant="h2">{children}</h2>
+              return <Typography variant="h2">{children}</Typography>
             case 3:
-              return <Typography variant="h3">{children}</h3>
+              return <Typography variant="h3">{children}</Typography>
             case 4:
-              return <Typography variant="h4">{children}</h4>
+              return <Typography variant="h4">{children}</Typography>
             case 5:
-              return <Typography variant="h5">{children}</h5>
+              return <Typography variant="h5">{children}</Typography>
             case 6:
-              return <Typography variant="h6">{children}</h6>
+              return <Typography variant="h6">{children}</Typography>
             default:
-              return <Typography variant="h1">{children}</h1>
+              return <Typography variant="h1">{children}</Typography>
           }
         },
         // For links, you may want to use the component from your router or framework
