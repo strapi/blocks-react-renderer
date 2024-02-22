@@ -50,8 +50,8 @@ jobs:
 
             Hello @${{ github.event.issue.user.login }},
 
-            We ask that you please follow the [issue template](https://raw.githubusercontent.com/strapi/strapi/master/.github/ISSUE_TEMPLATE/BUG_REPORT.md).
-            A proper issue submission let's us better understand the origin of your bug and therefore help you. We will reopen your issue when we receive the issue following the template guidelines and properly fill out the template. You can see the template guidelines for bug reports [here](https://github.com/strapi/strapi/blob/master/CONTRIBUTING.md#reporting-an-issue).
+            We ask that you please follow the [issue template](https://github.com/strapi/blocks-react-renderer/blob/main/.github/ISSUE_TEMPLATE/BUG_REPORT.yml).
+            A proper issue submission lets us better understand the origin of your bug and therefore help you. We will reopen your issue when we receive the issue following the template guidelines and properly fill out the template. You can see the template guidelines for bug reports [here](https://github.com/strapi/strapi/blob/master/CONTRIBUTING.md#reporting-an-issue).
 
             Please update the issue with the template and we can reopen this report.
 
