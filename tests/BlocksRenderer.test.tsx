@@ -88,6 +88,33 @@ describe('BlocksRenderer', () => {
       expect(paragraph).toHaveTextContent('A paragraph with bold');
     });
 
+    it('renders a br when there is an empty paragraph', () => {
+      render(
+        <BlocksRenderer
+          content={[
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: 'First paragraph' }],
+            },
+            // empty paragraph
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: '' }],
+            },
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: 'Second paragraph' }],
+            },
+          ]}
+        />
+      );
+
+      // eslint-disable-next-line testing-library/no-node-access
+      const brElement = screen.getByText('First paragraph').nextElementSibling;
+      expect(brElement).toBeInTheDocument();
+      expect(brElement?.tagName).toBe('BR');
+    });
+
     it('renders quotes', () => {
       render(
         <BlocksRenderer
