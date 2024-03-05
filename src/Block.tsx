@@ -65,6 +65,16 @@ const Block = ({ content }: BlockProps) => {
     return <BlockComponent {...props} />;
   }
 
+  // Handle empty paragraphs separately as they should render a <br> tag
+  if (
+    type === 'paragraph' &&
+    childrenNodes.length === 1 &&
+    childrenNodes[0].type === 'text' &&
+    childrenNodes[0].text === ''
+  ) {
+    return <br />;
+  }
+
   const augmentedProps = augmentProps(content);
 
   return (
