@@ -16,23 +16,30 @@ const voidTypes = ['image'];
  */
 const augmentProps = (content: Node) => {
   const { children: childrenNodes, type, ...props } = content;
+  const getPlainText = (children: typeof childrenNodes): string => {
+    return children.reduce((currentPlainText, node) => {
+      if (node.type === 'text') {
+        return currentPlainText.concat(node.text);
+      }
+
+      if (node.type === 'link') {
+        return currentPlainText.concat(getPlainText(node.children));
+      }
+
+      return currentPlainText;
+    }, '');
+  };
 
   if (type === 'code') {
     // Builds a plain text string from an array of nodes, regardless of links or modifiers
-    const getPlainText = (children: typeof childrenNodes): string => {
-      return children.reduce((currentPlainText, node) => {
-        if (node.type === 'text') {
-          return currentPlainText.concat(node.text);
-        }
 
-        if (node.type === 'link') {
-          return currentPlainText.concat(getPlainText(node.children));
-        }
-
-        return currentPlainText;
-      }, '');
+    return {
+      ...props,
+      plainText: getPlainText(content.children),
     };
+  }
 
+  if (type === 'heading') {
     return {
       ...props,
       plainText: getPlainText(content.children),
