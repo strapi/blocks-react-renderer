@@ -17,7 +17,7 @@ const voidTypes = ['image'];
 const augmentProps = (content: Node) => {
   const { children: childrenNodes, type, ...props } = content;
 
-  if (type === 'code') {
+  if (type === 'code' || type === 'heading') {
     // Builds a plain text string from an array of nodes, regardless of links or modifiers
     const getPlainText = (children: typeof childrenNodes): string => {
       return children.reduce((currentPlainText, node) => {
