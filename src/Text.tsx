@@ -16,7 +16,7 @@ type Modifier = Exclude<keyof TextInlineNode, 'type' | 'text'>;
 
 type TextInlineProps = Omit<TextInlineNode, 'type'>;
 
-const replaceLineEndings = (text: string) => {
+const replaceLineBreaks = (text: string) => {
   const split = text.split(/\r?\n|\r/g);
   return (
     <>
@@ -62,7 +62,7 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
       return <ModifierComponent>{children}</ModifierComponent>;
     },
     // By default, return the text without any wrapper to avoid useless nesting
-    replaceLineEndings(text)
+    replaceLineBreaks(text)
   );
 };
 
