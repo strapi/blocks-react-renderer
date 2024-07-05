@@ -16,6 +16,20 @@ type Modifier = Exclude<keyof TextInlineNode, 'type' | 'text'>;
 
 type TextInlineProps = Omit<TextInlineNode, 'type'>;
 
+const replaceLineEndings = (text: string) => {
+  const split = text.split(/\r?\n|\r/g);
+  return (
+    <>
+      {split.map((part, idx) => (
+        <React.Fragment key={idx}>
+          {!!idx && <br />}
+          {part}
+        </React.Fragment>
+      ))}
+    </>
+  );
+};
+
 const Text = ({ text, ...modifiers }: TextInlineProps) => {
   // Get matching React component from the context
   const { modifiers: modifierComponents, missingModifierTypes } = useComponentsContext();
@@ -48,7 +62,7 @@ const Text = ({ text, ...modifiers }: TextInlineProps) => {
       return <ModifierComponent>{children}</ModifierComponent>;
     },
     // By default, return the text without any wrapper to avoid useless nesting
-    <>{text}</>
+    replaceLineEndings(text)
   );
 };
 
