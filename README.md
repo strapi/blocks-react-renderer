@@ -72,7 +72,7 @@ const App = () => {
       content={content}
       blocks={{
         // You can use the default components to set class names...
-        paragraph: ({ children }) => <p className="text-neutral900 max-w-prose">{children}</p>,
+        paragraph: ({ children }) => <p className="text-neutral-900 max-w-prose">{children}</p>,
         // ...or point to a design system
         heading: ({ children, level }) => {
           switch (level) {
