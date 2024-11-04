@@ -21,7 +21,7 @@
       "url": "https://strapi.io"
     }
   ],
-  "type": "commonjs",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
