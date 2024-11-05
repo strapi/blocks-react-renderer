@@ -445,5 +445,27 @@ describe('BlocksRenderer', () => {
 
       expect(screen.getByText('const a = 1;const b = 2;')).toBeInTheDocument();
     });
+
+    it('parses headings to plain text', () => {
+      render(
+        <BlocksRenderer
+          content={content}
+          blocks={{
+            heading: (props) => {
+              const HeadingLevel = `h${props.level}` as keyof React.JSX.IntrinsicElements;
+              return (
+                <HeadingLevel data-testid="heading-with-id" data-plain-text={props.plainText}>
+                  {props.children}
+                </HeadingLevel>
+              );
+            },
+          }}
+        />
+      );
+
+      const element = screen.getByTestId('heading-with-id');
+
+      expect(element.dataset.plainText).toBe('A cool website');
+    });
   });
 });
