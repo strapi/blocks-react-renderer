@@ -22,7 +22,7 @@ const replaceLineBreaks = (text: string) => {
     <>
       {split.map((part, idx) => (
         <React.Fragment key={idx}>
-          {!!idx && <br />}
+          {idx > 0 && <br />}
           {part}
         </React.Fragment>
       ))}
