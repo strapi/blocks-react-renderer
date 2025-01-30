@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/no-node-access */
+
 import * as React from 'react';
 
 import { render, screen } from '@testing-library/react';
@@ -61,7 +63,6 @@ describe('BlocksRenderer', () => {
       expect(boldTag[1]).toHaveTextContent(/and bold underlines/i);
 
       // Should still fallback to default components
-      // eslint-disable-next-line testing-library/no-node-access
       const underlineTag = document.querySelector('u');
       expect(underlineTag).toHaveTextContent(/and bold underlines/i);
     });
@@ -83,7 +84,6 @@ describe('BlocksRenderer', () => {
         />
       );
 
-      // eslint-disable-next-line testing-library/no-node-access
       const paragraph = screen.getByText('A paragraph').closest('p');
       expect(paragraph).toHaveTextContent('A paragraph with bold');
     });
@@ -109,10 +109,26 @@ describe('BlocksRenderer', () => {
         />
       );
 
-      // eslint-disable-next-line testing-library/no-node-access
       const brElement = screen.getByText('First paragraph').nextElementSibling;
       expect(brElement).toBeInTheDocument();
       expect(brElement?.tagName).toBe('BR');
+    });
+
+    it('renders paragraphs with line breaks', () => {
+      render(
+        <BlocksRenderer
+          content={[
+            {
+              type: 'paragraph',
+              children: [{ type: 'text', text: 'First line\nSecond line' }],
+            },
+          ]}
+        />
+      );
+
+      const paragraph = screen.getByText(/First line/).closest('p');
+      const paragraphParts = paragraph?.innerHTML?.split('<br>');
+      expect(paragraphParts).toEqual(['First line', 'Second line']);
     });
 
     it('renders quotes', () => {
@@ -129,7 +145,6 @@ describe('BlocksRenderer', () => {
 
       const quote = screen.getByText('A quote');
       expect(quote).toBeInTheDocument();
-      // eslint-disable-next-line testing-library/no-node-access
       expect(quote.closest('blockquote')).toBeInTheDocument();
     });
 
@@ -142,9 +157,7 @@ describe('BlocksRenderer', () => {
 
       const code = screen.getByText('my code');
       expect(code).toBeInTheDocument();
-      // eslint-disable-next-line testing-library/no-node-access
       expect(code.closest('code')).toBeInTheDocument();
-      // eslint-disable-next-line testing-library/no-node-access
       expect(code.closest('pre')).toBeInTheDocument();
     });
 
@@ -322,13 +335,11 @@ describe('BlocksRenderer', () => {
       const text = screen.getByText('My text');
       expect(text).toBeInTheDocument();
 
-      /* eslint-disable testing-library/no-node-access */
       expect(text.closest('strong')).toBeInTheDocument();
       expect(text.closest('em')).toBeInTheDocument();
       expect(text.closest('u')).toBeInTheDocument();
       expect(text.closest('del')).toBeInTheDocument();
       expect(text.closest('code')).toBeInTheDocument();
-      /* eslint-enable testing-library/no-node-access */
     });
 
     it('ignores disabled or unknown modifiers', () => {
@@ -357,7 +368,6 @@ describe('BlocksRenderer', () => {
       const text = screen.getByText('My text');
       expect(text).toBeInTheDocument();
 
-      // eslint-disable-next-line testing-library/no-node-access
       expect(text.closest('strong')).not.toBeInTheDocument();
 
       console.warn = originalWarn;
