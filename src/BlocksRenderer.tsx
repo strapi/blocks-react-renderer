@@ -222,7 +222,7 @@ const BlocksRenderer = (props: BlocksRendererProps) => {
       }}
     >
       {/* TODO use WeakMap instead of index as the key */}
-      {props.content.map((content, index) => (
+      {props?.content?.map((content, index) => (
         <Block content={content} key={index} />
       ))}
     </ComponentsProvider>
