@@ -1324,8 +1324,8 @@ __metadata:
     "@testing-library/jest-dom": ^6.1.4
     "@testing-library/react": ^16.0.0
     "@types/jest": ^29.5.5
-    "@types/react": ^19.0.0
-    "@types/react-dom": ^19.0.0
+    "@types/react": ^18.0.0 || ^19.0.0
+    "@types/react-dom": ^18.0.0 || ^19.0.0
     "@typescript-eslint/eslint-plugin": ^6.9.0
     "@typescript-eslint/parser": ^6.9.0
     eslint: ^8.52.0
@@ -1344,13 +1344,13 @@ __metadata:
     lint-staged: ^15.0.1
     pinst: ^3.0.0
     prettier: ^3.0.3
-    react: ^19.0.0
-    react-dom: ^19.0.0
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
     rollup-plugin-preserve-directives: ^0.2.0
     typescript: ^5.2.2
   peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
   languageName: unknown
   linkType: soft
 
@@ -1764,7 +1764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.0.0":
+"@types/react-dom@npm:^18.0.0 || ^19.0.0":
   version: 19.0.3
   resolution: "@types/react-dom@npm:19.0.3"
   peerDependencies:
@@ -1773,7 +1773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^19.0.0":
+"@types/react@npm:^18.0.0 || ^19.0.0":
   version: 19.0.8
   resolution: "@types/react@npm:19.0.8"
   dependencies:
@@ -7463,7 +7463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.0.0":
+"react-dom@npm:^18.0.0 || ^19.0.0":
   version: 19.0.0
   resolution: "react-dom@npm:19.0.0"
   dependencies:
@@ -7502,7 +7502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^19.0.0":
+"react@npm:^18.0.0 || ^19.0.0":
   version: 19.0.0
   resolution: "react@npm:19.0.0"
   checksum: 86de15d85b2465feb40297a90319c325cb07cf27191a361d47bcfe8c6126c973d660125aa67b8f4cbbe39f15a2f32efd0c814e98196d8e5b68c567ba40a399c6
