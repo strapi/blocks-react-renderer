@@ -335,13 +335,11 @@ describe('BlocksRenderer', () => {
       const text = screen.getByText('My text');
       expect(text).toBeInTheDocument();
 
-      /* eslint-disable testing-library/no-node-access */
       expect(text.closest('strong')).toBeInTheDocument();
       expect(text.closest('em')).toBeInTheDocument();
       expect(text.closest('u')).toBeInTheDocument();
       expect(text.closest('del')).toBeInTheDocument();
       expect(text.closest('code')).toBeInTheDocument();
-      /* eslint-enable testing-library/no-node-access */
     });
 
     it('ignores disabled or unknown modifiers', () => {
