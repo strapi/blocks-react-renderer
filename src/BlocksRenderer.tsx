@@ -88,7 +88,7 @@ type Node = RootNode | NonTextInlineNode;
 type GetPropsFromNode<T> = Omit<T, 'type' | 'children'> & {
   children?: React.ReactNode;
   // For code blocks, add a plainText property that is created by this renderer
-  plainText?: T extends { type: 'code' } ? string : never;
+  plainText?: T extends { type: 'code' | 'heading' } ? string : never;
 };
 
 // Map of all block types to their matching React component

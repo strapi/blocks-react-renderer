@@ -40,7 +40,7 @@ You can provide your own React components to the renderer, both for blocks and m
 
 - **Blocks** are full-width elements, usually at the root of the content. The available options are:
   - paragraph
-  - heading (receives `level`)
+  - heading (receives `level` and `plainText`)
   - list (receives `format`)
   - quote
   - code (receives `plainText`)
