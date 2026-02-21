@@ -12,6 +12,8 @@ import { type Modifier, type TextInlineNode } from './Text';
 interface LinkInlineNode {
   type: 'link';
   url: string;
+  target?: string;
+  rel?: string;
   children: TextInlineNode[];
 }
 
