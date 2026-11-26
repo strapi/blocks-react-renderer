@@ -103,3 +103,7 @@ const App = () => {
   );
 };
 ```
+
+## Development
+
+Run `yarn install` in a Git checkout, then run `yarn setup:hooks` to install the local Git hooks.
