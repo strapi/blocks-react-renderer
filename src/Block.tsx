@@ -4,9 +4,12 @@ import { useComponentsContext, type Node, type GetPropsFromNode } from './Blocks
 import { Text } from './Text';
 
 type BlockComponentProps = GetPropsFromNode<Node>;
+type ListNode = Extract<Node, { type: 'list' }>;
+type ListItemNode = Extract<Node, { type: 'list-item' }>;
 
 interface BlockProps {
   content: Node;
+  nestedLists?: ListNode[];
 }
 
 const voidTypes = ['image'];
@@ -42,7 +45,27 @@ const augmentProps = (content: Node) => {
   return props;
 };
 
-const Block = ({ content }: BlockProps) => {
+const groupListItems = (children: ListNode['children']) => {
+  const items: { item: ListItemNode; nestedLists: ListNode[] }[] = [];
+
+  for (const child of children) {
+    if (child.type === 'list-item') {
+      items.push({ item: child, nestedLists: [] });
+      continue;
+    }
+
+    // The editor stores sublists next to their parent list item.
+    if (items.length === 0) {
+      items.push({ item: { type: 'list-item', children: [] }, nestedLists: [] });
+    }
+
+    items[items.length - 1].nestedLists.push(child);
+  }
+
+  return items;
+};
+
+const Block = ({ content, nestedLists }: BlockProps) => {
   const { children: childrenNodes, type, ...props } = content;
 
   // Get matching React component from the context
@@ -77,6 +100,16 @@ const Block = ({ content }: BlockProps) => {
 
   const augmentedProps = augmentProps(content);
 
+  if (type === 'list') {
+    return (
+      <BlockComponent {...augmentedProps}>
+        {groupListItems(childrenNodes).map(({ item, nestedLists }, index) => (
+          <Block content={item} nestedLists={nestedLists} key={index} />
+        ))}
+      </BlockComponent>
+    );
+  }
+
   return (
     <BlockComponent {...augmentedProps}>
       {childrenNodes.map((childNode, index) => {
@@ -90,6 +123,7 @@ const Block = ({ content }: BlockProps) => {
         // TODO use node as key with WeakMap
         return <Block content={childNode} key={index} />;
       })}
+      {nestedLists?.map((list, index) => <Block content={list} key={index} />)}
     </BlockComponent>
   );
 };
