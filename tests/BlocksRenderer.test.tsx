@@ -211,7 +211,7 @@ describe('BlocksRenderer', () => {
       expect(items[1]).toHaveTextContent('Item 2');
     });
 
-    it('renders nested lists', () => {
+    it('renders a leading nested list inside a list item', () => {
       render(
         <BlocksRenderer
           content={[
@@ -232,8 +232,38 @@ describe('BlocksRenderer', () => {
         />
       );
 
-      expect(screen.getAllByRole('list')).toHaveLength(2);
-      expect(screen.getByRole('listitem')).toHaveTextContent('Nested item 1');
+      const [outerList, nestedList] = screen.getAllByRole('list');
+      expect(outerList.firstElementChild?.tagName).toBe('LI');
+      expect(nestedList.parentElement).toBe(outerList.firstElementChild);
+      expect(nestedList).toHaveTextContent('Nested item 1');
+    });
+
+    it('nests sublists under the preceding item without adding another ordered item', () => {
+      render(
+        <BlocksRenderer
+          content={[
+            {
+              type: 'list',
+              format: 'ordered',
+              children: [
+                { type: 'list-item', children: [{ type: 'text', text: 'Parent' }] },
+                {
+                  type: 'list',
+                  format: 'unordered',
+                  children: [{ type: 'list-item', children: [{ type: 'text', text: 'Child' }] }],
+                },
+                { type: 'list-item', children: [{ type: 'text', text: 'Next' }] },
+              ],
+            },
+          ]}
+        />
+      );
+
+      const [outerList, nestedList] = screen.getAllByRole('list');
+      expect(Array.from(outerList.children, (child) => child.tagName)).toEqual(['LI', 'LI']);
+      expect(nestedList.parentElement).toBe(outerList.firstElementChild);
+      expect(outerList.firstElementChild).toHaveTextContent('Parent');
+      expect(outerList.lastElementChild).toHaveTextContent('Next');
     });
 
     it('renders images', () => {
